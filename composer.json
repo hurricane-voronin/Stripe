@@ -22,21 +22,11 @@
     "require": {
         "stripe/stripe-php": "^6.9"
     },
-    "require-dev": {
-        "payum/core": "^1.5",
-        "phpunit/phpunit": "^5.7",
-        "symfony/phpunit-bridge": "^3.1|^4"
-    },
     "config": {
         "bin-dir": "bin"
     },
     "autoload": {
         "psr-0": { "Payum\\Stripe": "" }
     },
-    "target-dir": "Payum/Stripe",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.5-dev"
-        }
-    }
+    "target-dir": "Payum/Stripe"
 }

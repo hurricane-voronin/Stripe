@@ -1,5 +1,5 @@
 {
-    "name": "payum/stripe",
+    "name": "payum/stripe-fork",
     "type": "library",
     "description": "The Payum extension. It provides Stripe payment integration.",
     "keywords": ["payment", "stripe", "stripe.js", "checkout", "direct", "subscription", "store card"],

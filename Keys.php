@@ -1,41 +1,41 @@
 <?php
+
 namespace Payum\Stripe;
 
-class Keys
+final class Keys
 {
-    /**
-     * @var string
-     */
-    protected $publishable;
+    /** @var string */
+    private $publishable;
 
-    /**
-     * @var string
-     */
-    protected $secret;
+    /** @var string */
+    private $secret;
 
-    /**
-     * @param string $publishable
-     * @param string $secret
-     */
-    public function __construct($publishable, $secret)
+    /** @var array */
+    private $paymentMethodTypes = [];
+
+    public function __construct(string $publishable, string $secret, ?array $paymentMethodTypes = [])
     {
+        if (empty($paymentMethodTypes)) {
+            $paymentMethodTypes[] = Constants::PAYMENT_METHOD_TYPE_CARD;
+        }
+
         $this->publishable = $publishable;
         $this->secret = $secret;
+        $this->paymentMethodTypes = $paymentMethodTypes;
     }
 
-    /**
-     * @return string
-     */
-    public function getSecretKey()
+    public function getSecretKey(): string
     {
         return $this->secret;
     }
 
-    /**
-     * @return string
-     */
-    public function getPublishableKey()
+    public function getPublishableKey(): string
     {
         return $this->publishable;
+    }
+
+    public function getPaymentMethodTypes(): array
+    {
+        return array_values($this->paymentMethodTypes);
     }
 }

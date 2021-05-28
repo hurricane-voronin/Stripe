@@ -3,13 +3,25 @@
 namespace Payum\Stripe\Action\CheckoutServer;
 
 use Payum\Core\Action\ActionInterface;
+use Payum\Core\ApiAwareInterface;
+use Payum\Core\ApiAwareTrait;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Model\PaymentInterface;
 use Payum\Core\Request\Convert;
+use Payum\Stripe\Keys;
 
-class ConvertPaymentAction implements ActionInterface
+class ConvertPaymentAction implements ActionInterface, ApiAwareInterface
 {
+    use ApiAwareTrait {
+        setApi as _setApi;
+    }
+
+    public function __construct()
+    {
+        $this->apiClass = Keys::class;
+    }
+
     /**
      * {@inheritDoc}
      *
@@ -37,7 +49,7 @@ class ConvertPaymentAction implements ActionInterface
             'currency' => $payment->getCurrencyCode(),
             'quantity' => 1
         ]];
-        $details['payment_method_types'] = ['card'];
+        $details['payment_method_types'] = $this->api->getPaymentMethodTypes();
         $details['mode'] = 'payment';
         $details['submit_type'] = 'pay';
         $details['locale'] = 'auto';

@@ -46,8 +46,9 @@ class CaptureAction implements ActionInterface, GatewayAwareInterface
             $model['cancel_url'] = $this->generateCancelUrl($request->getToken()->getTargetUrl());
 
             $this->gateway->execute(new CreateSession($model));
-            $this->gateway->execute(new RedirectToCheckoutServer($model));
-        } elseif ($model['object'] === Session::OBJECT_NAME) {
+        }
+
+        if ($model['object'] === Session::OBJECT_NAME) {
             $modelClone = clone $model;
             $this->gateway->execute(new Sync($modelClone));
             $this->gateway->execute($status = new GetHumanStatus($modelClone));

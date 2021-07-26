@@ -13,7 +13,10 @@ final class Keys
     /** @var array */
     private $paymentMethodTypes = [];
 
-    public function __construct(string $publishable, string $secret, ?array $paymentMethodTypes = [])
+    /** @var string */
+    private $signingSecret;
+
+    public function __construct(string $publishable, string $secret, ?array $paymentMethodTypes = [], string $signingSecret = '')
     {
         if (empty($paymentMethodTypes)) {
             $paymentMethodTypes[] = Constants::PAYMENT_METHOD_TYPE_CARD;
@@ -22,6 +25,7 @@ final class Keys
         $this->publishable = $publishable;
         $this->secret = $secret;
         $this->paymentMethodTypes = $paymentMethodTypes;
+        $this->signingSecret = $signingSecret;
     }
 
     public function getSecretKey(): string
@@ -37,5 +41,10 @@ final class Keys
     public function getPaymentMethodTypes(): array
     {
         return array_values($this->paymentMethodTypes);
+    }
+
+    public function getSigningSecret(): string
+    {
+        return $this->signingSecret;
     }
 }

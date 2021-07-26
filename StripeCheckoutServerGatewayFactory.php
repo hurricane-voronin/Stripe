@@ -51,6 +51,7 @@ class StripeCheckoutServerGatewayFactory extends GatewayFactory
                 'publishable_key' => '',
                 'secret_key' => '',
                 'payment_method_types' => [],
+                'signing_secret' => '',
             ];
             $config->defaults($config['payum.default_options']);
             $config['payum.required_options'] = ['publishable_key', 'secret_key', 'payment_method_types'];
@@ -58,7 +59,7 @@ class StripeCheckoutServerGatewayFactory extends GatewayFactory
             $config['payum.api'] = function (ArrayObject $config) {
                 $config->validateNotEmpty($config['payum.required_options']);
 
-                return new Keys($config['publishable_key'], $config['secret_key'], $config['payment_method_types']);
+                return new Keys($config['publishable_key'], $config['secret_key'], $config['payment_method_types'], $config['signing_secret']);
             };
         }
 
